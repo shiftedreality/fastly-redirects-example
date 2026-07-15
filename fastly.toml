@@ -13,8 +13,8 @@ service_id = ""
   [local_server.backends]
 
     [local_server.backends.origin_0]
-      override_host = "shiftedreality.dev"
-      url = "https://shiftedreality.dev"
+      override_host = "example.com"
+      url = "https://example.com"
 
   [local_server.kv_stores]
 
@@ -27,5 +27,5 @@ service_id = ""
   [setup.backends]
 
     [setup.backends.origin_0]
-      address = "shiftedreality.dev"
+      address = "example.com"
       port = 443

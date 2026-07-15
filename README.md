@@ -48,19 +48,25 @@ Also update `name`, `description`, and the `origin_0` backend address to point a
 npm run start
 ```
 
-This builds `src/index.js` to WebAssembly and serves it locally (default http://127.0.0.1:7676) using Fastly's Viceroy runtime. Local redirects are read from [`local-redirects.json`](local-redirects.json) via the `[local_server.kv_stores]` section of `fastly.toml`.
+This builds `src/index.js` to WebAssembly and serves it locally (default http://127.0.0.1:7676) using Fastly's Viceroy runtime. Local redirects are read from `local-redirects.json` via the `[local_server.kv_stores]` section of `fastly.toml`.
+
+Create your local redirect data by copying the example file (`local-redirects.json` is gitignored, so it stays out of version control):
+
+```shell
+cp local-redirects.example.json local-redirects.json
+```
 
 Test it:
 
 ```shell
 # 301 → the configured destination
-curl -i http://127.0.0.1:7676/oleg-test/
+curl -i http://127.0.0.1:7676/old-page/
 
 # unknown path → 404
 curl -i http://127.0.0.1:7676/some-other-path
 ```
 
-Add more local redirects by editing [`local-redirects.json`](local-redirects.json) (restart the server to pick up changes):
+Add more local redirects by editing `local-redirects.json` (restart the server to pick up changes):
 
 ```json
 {
@@ -79,7 +85,7 @@ The first time, the CLI prompts you to **create a new service**. Accept, and it 
 
 ## 5. Create the production KV Store and add redirects
 
-The local `local-redirects.json` file is **only for local development**. In production, redirects live in a real KV Store that you populate with the CLI.
+The local `local-redirects.json` file (copied from `local-redirects.example.json`) is **only for local development**. In production, redirects live in a real KV Store that you populate with the CLI.
 
 ```shell
 # Create the store (name must match the one used in src/index.js: "redirects_store")
@@ -123,5 +129,5 @@ To serve redirects from your own hostname instead of the `.edgecompute.app` defa
 |------|---------|
 | [`src/index.js`](src/index.js) | Edge redirect logic |
 | [`fastly.toml`](fastly.toml) | Service manifest (backends, KV store binding, local dev config) |
-| [`local-redirects.json`](local-redirects.json) | Redirect data for local development only |
+| [`local-redirects.example.json`](local-redirects.example.json) | Template for local redirect data — copy to `local-redirects.json` (gitignored) |
 | [`package.json`](package.json) | Dependencies and `build` / `start` / `deploy` scripts |
