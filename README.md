@@ -1,5 +1,7 @@
 # Fastly Redirect Handler
 
+> ⚠️ **Disclaimer:** This project is provided **for example and demonstration purposes only**. It is not officially supported, comes with no warranty, and is not intended for production use as-is. Review, test, and harden it for your own requirements before relying on it. Use at your own risk.
+
 A [Fastly Compute](https://www.fastly.com/documentation/guides/compute/) application that serves **301 redirects** at the edge, backed by a Fastly **KV Store**. Each incoming request path is looked up in the KV Store; if a matching key exists, the request is redirected to the stored destination URL.
 
 - Match found → `301 Moved Permanently` with a `Location` header (cached for 1 hour)
