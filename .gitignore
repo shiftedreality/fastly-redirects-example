@@ -1,0 +1,6 @@
+/node_modules
+/bin
+/pkg
+/.idea
+mcp-server.log
+value.txt

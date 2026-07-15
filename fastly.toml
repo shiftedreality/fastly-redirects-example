@@ -1,0 +1,31 @@
+# This file describes a Fastly Compute package. To learn more visit:
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = []
+description = "301 redirect handler using Fastly KV Store"
+language = "javascript"
+manifest_version = 3
+name = "redirect-handler"
+service_id = ""
+
+[local_server]
+
+  [local_server.backends]
+
+    [local_server.backends.origin_0]
+      override_host = "shiftedreality.dev"
+      url = "https://shiftedreality.dev"
+
+  [local_server.kv_stores]
+
+    [local_server.kv_stores.redirects_store]
+      file = "local-redirects.json"
+      format = "json"
+
+[setup]
+
+  [setup.backends]
+
+    [setup.backends.origin_0]
+      address = "shiftedreality.dev"
+      port = 443
